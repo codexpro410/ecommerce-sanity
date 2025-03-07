@@ -19,7 +19,7 @@ export default function Icon({
   icon, 
   href = '/', 
   text, 
-  counter = 0, 
+  counter, 
   textUp, 
   cart, 
   order, 
