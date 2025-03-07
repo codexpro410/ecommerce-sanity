@@ -11,7 +11,7 @@ export async function POST(req:NextRequest){
     if(!sig){
         return NextResponse.json({error: "Missing stripe signature"},{ status:400})
     }
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    const webhookSecret = process.env.NODE_ENV === 'production' ? 'whsec_0vRPv77StG6SwRlITyAfKgbq1FryziuH' : process.env.STRIPE_WEBHOOK_SECRET;
     if(!webhookSecret){
         console.error("Missing stripe webhook secret");
         return NextResponse.json({error: "Missing stripe webhook secret"},{ status:400})
