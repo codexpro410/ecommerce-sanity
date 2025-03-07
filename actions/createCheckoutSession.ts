@@ -35,8 +35,11 @@ export async function createCheckoutSession(items:GroupedCartItems[],metadata:Me
             mode:"payment",
             allow_promotion_codes:true,
             payment_method_types:["card"],
-            success_url:`${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
-            cancel_url:`${process.env.NEXT_PUBLIC_BASE_URL}/cart?orderNumber=${metadata.orderNumber}`,
+
+            // success_url:`${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
+            success_url: process.env.NODE_ENV === 'production' ? `https://ecommerce-sanity-psi-one.vercel.app/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}` : `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
+            // cancel_url:`${process.env.NEXT_PUBLIC_BASE_URL}/cart?orderNumber=${metadata.orderNumber}`,
+            cancel_url: process.env.NODE_ENV === 'production' ? `https://ecommerce-sanity-psi-one.vercel.app/cart?orderNumber=${metadata.orderNumber}` : `${process.env.NEXT_PUBLIC_BASE_URL}/cart?orderNumber=${metadata.orderNumber}`,
             line_items:items.map((item) => ({
                 price_data: {
                     currency:"usd",
